@@ -10,6 +10,14 @@
         "file://*"
     ],
 
+    "browser_action": {
+        "default_icon": {
+
+        },
+        "default_title": "Journalist's Toolbox",
+        "default_popup": "popup.html"
+    },
+
     "commands": {
         "load_twitter":{
             "suggested_key": {
