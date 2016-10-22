@@ -6,8 +6,7 @@
     "author": "Kia Farhang",
     "permissions": [
         "tabs",
-        "*://*/*",
-        "file://*"
+        "*://*/*"
     ],
 
     "browser_action": {

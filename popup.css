@@ -1,7 +1,14 @@
 body {
+  line-height: 1.3;
   width: 15em; }
 
 ul {
-  list-style-type: none; }
+  list-style-type: none;
+  padding-left: 0; }
+  ul li {
+    transition: background 2s ease;
+    margin: .5em 0; }
+    ul li:hover {
+      background: #FFCB7E; }
 
 /*# sourceMappingURL=popup.css.map */
