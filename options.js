@@ -1,17 +1,36 @@
-function save_options(){
-	var comp1 = document.getElementById('competitor1').value;
-	var comp2 = document.getElementById('competitor2').value;
+function saveOptions() {
 
-	chrome.storage.sync.set({
-		competitorOne: comp1,
-		competitorTwo: comp2
-	}, function(){
-		var status = document.getElementById('status');
-		status.textContent = 'Options saved.';
-		setTimeout(function(){
-			status.textContent = '';
-		}, 750);
-	});
+    var comp1 = document.getElementById('competitor1').value;
+    var comp2 = document.getElementById('competitor2').value;
+    var comp3 = document.getElementById('competitor3').value;
+    var comp4 = document.getElementById('competitor4').value;
+
+    chrome.storage.sync.set({
+        'sites': {
+        	'site1': comp1,
+        	'site2': comp2,
+        	'site3': comp3,
+        	'site4': comp4
+        }
+    }, function() {
+        var status = document.getElementById('status');
+        status.textContent = 'Options saved.';
+        setTimeout(function() {
+            status.textContent = '';
+        }, 750);
+    });
 }
 
-document.getElementById('save').addEventListener('click', save_options);
+document.getElementById('save').addEventListener('click', saveOptions);
+
+document.getElementById('clear').addEventListener('click', clearStorage);
+
+function clearStorage() {
+    chrome.storage.sync.clear(function() {
+        var status = document.getElementById('status');
+        status.textContent = 'Sites reset.';
+        setTimeout(function() {
+            status.textContent = '';
+        }, 750);
+    });
+}

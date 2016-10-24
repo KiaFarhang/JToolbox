@@ -3,16 +3,27 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Journalist's Toolbox Options</title>
+	<style>
+		input: {padding: .5em;}
+	</style>
 </head>
 <body>
+<p>Please enter the competitor news orgnizations you'd like to search below.</p>
 	<label for="competitor1">
 		<input type="text" placeholder='nytimes.com' id='competitor1'>
 	</label>
 	<label for="competitor2">
 		<input type="text" placeholder='cnn.com' id='competitor2'>
 	</label>
+	<label for="competitor3">
+		<input type="text" placeholder='latimes.com' id='competitor3'>
+	</label>
+	<label for="competitor4">
+		<input type="text" placeholder='startribune.com' id='competitor4'>
+	</label>
 	<div id="status"></div>
 	<button id="save">Save</button>
+	<button id="clear">Clear sites</button>
 
 	<script src='options.js'></script>
 </body>
