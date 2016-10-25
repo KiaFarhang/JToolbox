@@ -5,10 +5,12 @@ body {
 ul {
   list-style-type: none;
   padding-left: 0; }
-  ul li {
-    transition: background 2s ease;
-    margin: .5em 0; }
-    ul li:hover {
-      background: #FFCB7E; }
+
+ul#definitionZone {
+  font-size: 15px; }
+  ul#definitionZone li {
+    margin: .5em; }
+  ul#definitionZone span {
+    font-weight: bold; }
 
 /*# sourceMappingURL=popup.css.map */
