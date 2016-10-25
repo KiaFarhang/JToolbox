@@ -2,9 +2,10 @@
 
 
 var competitorSearch = document.getElementById('competitorSearch');
+var dictionarySearch = document.getElementById('dictionarySearch');
 
 competitorSearch.addEventListener('submit', searchGoogle);
-
+dictionarySearch.addEventListener('submit', searchDictionary); 
 
 function searchGoogle() {
 
@@ -38,6 +39,8 @@ function searchGoogle() {
 
     });
 
+
+//Mashape WordsAPI Key qX2lNxi2wfmshg2v3o2eIDfXOPVTp1RVxaCjsnzhO7HW4yczcC   
 
 
     // var links = document.getElementById('searchList').getElementsByTagName('a');
