@@ -2,10 +2,18 @@
 
 
 var competitorSearch = document.getElementById('competitorSearch');
+// var searchGoogle = document.getElementById('searchGoogle');
+var wordSearch = document.getElementById('wordSearch');
 var dictionarySearch = document.getElementById('dictionarySearch');
+var thesaurusSearch = document.getElementById('thesaurusSearch');
+var options = document.getElementById('options');
 
 competitorSearch.addEventListener('submit', searchGoogle);
-dictionarySearch.addEventListener('click', searchDictionary);
+// searchGoogle.addEventListener('click', searchGoogle);
+dictionarySearch.addEventListener('click', searchWord);
+thesaurusSearch.addEventListener('click', searchWord);
+options.addEventListener('click', openOptions);
+wordSearch.addEventListener('keydown', pressHandler);
 
 function searchGoogle() {
 
@@ -41,7 +49,7 @@ function searchGoogle() {
 
 }
 
-function searchDictionary() {
+function searchWord(e) {
 
     clearList();
 
@@ -49,44 +57,73 @@ function searchDictionary() {
 
     var ul = document.getElementById('definitionZone');
 
-    var xhrString = 'https://wordsapiv1.p.mashape.com/words/' + text + '/definitions';
     var key = 'qX2lNxi2wfmshg2v3o2eIDfXOPVTp1RVxaCjsnzhO7HW4yczcC';
 
-    var xhr = ajaxCall('GET', xhrString, 'X-Mashape-Authorization', key);
-    xhr.onreadystatechange = function() {
-        if (this.readyState == 4) {
-            if (this.status == 200) {
-
-                var wordArray = JSON.parse(this.responseText).definitions;
-
-                for (var i = 0; i < wordArray.length; i++) {
-                    var thisDefinition = wordArray[i].definition;
-                    var thisPart = wordArray[i].partOfSpeech;
-                    var li = document.createElement('li');
-                    // var span = document.createElement('span');
-
-                    // span.innerText = thisPart;
-
-
-                    // li.appendChild(span);
-                    li.innerText = thisPart + ': ' + thisDefinition;
-                    ul.appendChild(li);
-                }
-            } else {
-                var error = document.createElement('li');
-                error.innerText = 'Sorry, an error occurred. Make sure you spelled the word correctly.';
-                ul.appendChild(error);
-            }
-
-        }
+    if (e.target.id == 'dictionarySearch') {
+        listDefinitions();
+    } else if (e.target.id == 'thesaurusSearch') {
+        listSynonyms();
     }
 
-    xhr.send();
+    function listSynonyms() {
+        var xhrString = 'https://wordsapiv1.p.mashape.com/words/' + text + '/synonyms';
+
+        var xhr = ajaxCall('GET', xhrString, 'X-Mashape-Authorization', key);
+        xhr.onreadystatechange = function() {
+            if (this.readyState == 4) {
+                if (this.status == 200) {
+                    var obj = JSON.parse(this.responseText).synonyms;
+
+                    for (var i = 0; i < obj.length; i++) {
+                        var synonym = obj[i];
+                        var li = document.createElement('li');
+
+                        li.innerText = synonym;
+                        ul.appendChild(li);
+                    }
+                } else {
+                    var error = document.createElement('li');
+                    error.classList.add('error');
+                    error.innerText = 'Sorry, an error occurred. Make sure you spelled the word correctly.';
+                    ul.appendChild(error);
+                }
+            }
+        }
+
+        xhr.send();
+    }
+
+    function listDefinitions() {
+        var xhrString = 'https://wordsapiv1.p.mashape.com/words/' + text + '/definitions'
+
+        var xhr = ajaxCall('GET', xhrString, 'X-Mashape-Authorization', key);
+        xhr.onreadystatechange = function() {
+            if (this.readyState == 4) {
+                if (this.status == 200) {
+
+                    var wordArray = JSON.parse(this.responseText).definitions;
+
+                    for (var i = 0; i < wordArray.length; i++) {
+                        var thisDefinition = wordArray[i].definition;
+                        var thisPart = wordArray[i].partOfSpeech;
+                        var li = document.createElement('li');
+
+                        li.innerText = thisPart + ': ' + thisDefinition;
+                        ul.appendChild(li);
+                    }
+                } else {
+                    var error = document.createElement('li');
+                    error.classList.add('error');
+                    error.innerText = 'Sorry, an error occurred. Make sure you spelled the word correctly.';
+                    ul.appendChild(error);
+                }
+            }
+        }
+
+        xhr.send();
+    }
 
 }
-//Mashape WordsAPI Key qX2lNxi2wfmshg2v3o2eIDfXOPVTp1RVxaCjsnzhO7HW4yczcC   
-
-
 
 function ajaxCall(method, url, optionalHeaderType, optionalHeaderValue) {
     var xhr = new XMLHttpRequest();
@@ -104,4 +141,23 @@ function clearList() {
         ul.removeChild(ul.lastChild);
     }
 
+}
+
+function openOptions() {
+    chrome.runtime.openOptionsPage();
+}
+
+function pressHandler(e) {
+    if (e.key == 'Enter') {
+
+        clearList();
+        var ul = document.getElementById('definitionZone');
+
+        var li = document.createElement('li');
+
+        li.classList.add('error');
+        li.innerText = 'Click one of the buttons to search.';
+
+        ul.appendChild(li);
+    }
 }

@@ -2,15 +2,19 @@
 <html lang="en">
 <link rel="stylesheet" href='popup.css'>
 <ul id='searchList'>
+    <label for="competitorSearch">Search your competitors:</label>
     <form action="" id="competitorSearch">
-        <input type="text" placeholder='Steve Pougnet'>Search Goog</form>
-    <!-- <form action="" id='dictionarySearch'>
-        <input type="text" placeholder='gourd'>Search dictionary
-    </form> -->
-    <input type="text" id="wordSearch" placeholder="gourd">
-    <button id="dictionarySearch">Search dictionary</button>
-    <ul id='definitionZone'></li>
-</ul>
-<script src="popup.js"></script>
+        <input type="text" placeholder='Steve Pougnet'>
+    </form>
+<!--     <button id="searchGoogle">Search</button> -->
+    <label for="wordSearch">Search a word:</label>
+    <input type="text" id="wordSearch" placeholder="Gourd">
+    <button id="dictionarySearch">Definition</button>
+    <button id="thesaurusSearch">Synonyms</button>
+    <button id="options">Options</button>
+    <ul id='definitionZone'>
+        </li>
+    </ul>
+    <script src="popup.js"></script>
 
 </html>
