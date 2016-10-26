@@ -39,13 +39,6 @@
             },
             "description": "Load Facebook in a new tab"
         },
-        "load_dictionary":{
-            "suggested_key": {
-                "default": "Alt+C",
-                "mac": "Alt+C"
-            },
-            "description": "Load Dictionary in a new tab"
-        },
         "load_gmail":{
             "suggested_key":{
                 "default": "Alt+G",
