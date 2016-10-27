@@ -59,6 +59,9 @@ function searchWord(e) {
 
     var key = 'qX2lNxi2wfmshg2v3o2eIDfXOPVTp1RVxaCjsnzhO7HW4yczcC';
 
+    var dictKey = 'fe65f46d-c560-4ce5-b4f4-57a8fba739f4';
+    var thesKey = '478fc1d6-2e10-4ab5-8bde-1268d2782332';
+
     if (e.target.id == 'dictionarySearch') {
         listDefinitions();
     } else if (e.target.id == 'thesaurusSearch') {
@@ -66,21 +69,25 @@ function searchWord(e) {
     }
 
     function listSynonyms() {
-        var xhrString = 'https://wordsapiv1.p.mashape.com/words/' + text + '/synonyms';
+        var xhrString = 'http://www.dictionaryapi.com/api/v1/references/thesaurus/xml/' + text + '?key=' + thesKey;
 
-        var xhr = ajaxCall('GET', xhrString, 'X-Mashape-Authorization', key);
+        var xhr = ajaxCall('GET', xhrString);
         xhr.onreadystatechange = function() {
             if (this.readyState == 4) {
                 if (this.status == 200) {
-                    var obj = JSON.parse(this.responseText).synonyms;
+                    var xmlData = this.responseXML;
+                    var synonyms = xmlData.getElementsByTagName('syn')[0].textContent;
+                    var related = xmlData.getElementsByTagName('rel')[0].textContent;
 
-                    for (var i = 0; i < obj.length; i++) {
-                        var synonym = obj[i];
-                        var li = document.createElement('li');
+                    var liOne = document.createElement('li');
+                    liOne.innerText = synonyms;
 
-                        li.innerText = synonym;
-                        ul.appendChild(li);
-                    }
+                    var liTwo = document.createElement('li');
+                    liTwo.innerText = related;
+
+                    ul.appendChild(liOne);
+                    ul.appendChild(liTwo);
+
                 } else {
                     var error = document.createElement('li');
                     error.classList.add('error');
@@ -89,26 +96,30 @@ function searchWord(e) {
                 }
             }
         }
-
+        xhr.overrideMimeType('text/xml');
         xhr.send();
+
     }
+
 
     function listDefinitions() {
-        var xhrString = 'https://wordsapiv1.p.mashape.com/words/' + text + '/definitions'
+        var xhrString = 'http://www.dictionaryapi.com/api/v1/references/collegiate/xml/' + text + '?key=' + dictKey;
 
-        var xhr = ajaxCall('GET', xhrString, 'X-Mashape-Authorization', key);
+        var xhr = ajaxCall('GET', xhrString);
         xhr.onreadystatechange = function() {
             if (this.readyState == 4) {
                 if (this.status == 200) {
 
-                    var wordArray = JSON.parse(this.responseText).definitions;
+                    var xmlData = this.responseXML;
+                    var definitions = xmlData.getElementsByTagName('dt');
 
-                    for (var i = 0; i < wordArray.length; i++) {
-                        var thisDefinition = wordArray[i].definition;
-                        var thisPart = wordArray[i].partOfSpeech;
+
+                    for (var i = 0; i < definitions.length; i++) {
+                        var thisDefinition = definitions[i].textContent;
+
                         var li = document.createElement('li');
 
-                        li.innerText = thisPart + ': ' + thisDefinition;
+                        li.innerText = thisDefinition;
                         ul.appendChild(li);
                     }
                 } else {
@@ -120,10 +131,11 @@ function searchWord(e) {
             }
         }
 
+        xhr.overrideMimeType('text/xml');
         xhr.send();
     }
-
 }
+
 
 function ajaxCall(method, url, optionalHeaderType, optionalHeaderValue) {
     var xhr = new XMLHttpRequest();
