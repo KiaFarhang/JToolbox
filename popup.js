@@ -115,7 +115,7 @@ function searchWord(e) {
 
 
                     for (var i = 0; i < definitions.length; i++) {
-                        var thisDefinition = definitions[i].textContent;
+                        var thisDefinition = definitions[i].textContent.slice(1);
 
                         var li = document.createElement('li');
 
