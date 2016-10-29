@@ -1,5 +1,10 @@
+$primaryBlue: #1A86CC;
+$primaryRed: #FF3B3A;
+$primaryGreen: #05B238;
+
 body {
     line-height: 1.3;
+    font-family: Arial;
     font-size: 16px;
     width: 15em;
 }
@@ -10,10 +15,20 @@ ul {
     label {
         font-weight: bold;
     }
+    input{
+    	margin: .5em 0;
+    }
     button{
+    	background: $primaryBlue;
     	border: none;
+    	border-radius: 5px;
+    	color: white;
     	cursor: pointer;
     	margin-top: .5em;
+    	padding: .5em;
+    	&#options{
+			background: $primaryRed;
+    	}
     }
 }
 
@@ -28,4 +43,13 @@ ul#definitionZone {
 
 .error{
 	color: red;
+}
+
+.word{
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+.speech{
+	text-decoration: underline;
 }

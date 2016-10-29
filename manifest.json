@@ -1,6 +1,6 @@
 {
-    "name": "Journalist's Toolbox",
-    "description": "Adds keyboard shortcuts to open social networks in new tabs",
+    "name": "Swiss Army Notebook",
+    "description": "A collection of tools to make journalists' lives easier.",
     // "icons": {"128": "icon_128.png"},
     "version": "0.1",
     "author": "Kia Farhang",
@@ -20,7 +20,7 @@
         "default_icon": {
 
         },
-        "default_title": "Journalist's Toolbox",
+        "default_title": "Swiss Army Notebook",
         "default_popup": "popup.html"
     },
 

@@ -62,6 +62,11 @@ function searchWord(e) {
     var dictKey = 'fe65f46d-c560-4ce5-b4f4-57a8fba739f4';
     var thesKey = '478fc1d6-2e10-4ab5-8bde-1268d2782332';
 
+    var theWord = document.createElement('li');
+    theWord.innerText = text;
+    theWord.classList.add('word');
+    ul.appendChild(theWord);
+
     if (e.target.id == 'dictionarySearch') {
         listDefinitions();
     } else if (e.target.id == 'thesaurusSearch') {
@@ -111,16 +116,26 @@ function searchWord(e) {
                 if (this.status == 200) {
 
                     var xmlData = this.responseXML;
-                    var definitions = xmlData.getElementsByTagName('dt');
 
+                    var entries = xmlData.getElementsByTagName('entry');
 
-                    for (var i = 0; i < definitions.length; i++) {
-                        var thisDefinition = definitions[i].textContent.slice(1);
+                    for (var i = 0; i < entries.length; i++) {
+                        var speechPart = entries[i].getElementsByTagName('fl')[0].textContent;
+                        var speechItem = document.createElement('li');
+                        speechItem.classList.add('speech');
+                        speechItem.innerText = speechPart;
+                        ul.appendChild(speechItem);
 
-                        var li = document.createElement('li');
+                        var definitions = entries[i].getElementsByTagName('dt');
 
-                        li.innerText = thisDefinition;
-                        ul.appendChild(li);
+                        for (var i = 0; i < 5; i++) {
+                            var thisDefinition = definitions[i].firstChild.textContent.slice(1);
+
+                            var li = document.createElement('li');
+
+                            li.innerText = thisDefinition;
+                            ul.appendChild(li);
+                        }
                     }
                 } else {
                     var error = document.createElement('li');

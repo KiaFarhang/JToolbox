@@ -1,5 +1,6 @@
 body {
   line-height: 1.3;
+  font-family: Arial;
   font-size: 16px;
   width: 15em; }
 
@@ -8,10 +9,18 @@ ul {
   padding-left: 0; }
   ul label {
     font-weight: bold; }
+  ul input {
+    margin: .5em 0; }
   ul button {
+    background: #1A86CC;
     border: none;
+    border-radius: 5px;
+    color: white;
     cursor: pointer;
-    margin-top: .5em; }
+    margin-top: .5em;
+    padding: .5em; }
+    ul button#options {
+      background: #FF3B3A; }
 
 ul#definitionZone li {
   margin: .5em; }
@@ -20,5 +29,12 @@ ul#definitionZone span {
 
 .error {
   color: red; }
+
+.word {
+  font-weight: bold;
+  text-decoration: underline; }
+
+.speech {
+  text-decoration: underline; }
 
 /*# sourceMappingURL=popup.css.map */
