@@ -19,7 +19,7 @@ function saveOptions() {
         status.textContent = 'Options saved.';
         setTimeout(function() {
             status.textContent = '';
-        }, 750);
+        }, 2000);
     });
 }
 
@@ -33,6 +33,6 @@ function clearStorage() {
         status.textContent = 'Sites reset.';
         setTimeout(function() {
             status.textContent = '';
-        }, 750);
+        }, 2000);
     });
 }
