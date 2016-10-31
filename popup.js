@@ -120,21 +120,23 @@ function searchWord(e) {
                     var entries = xmlData.getElementsByTagName('entry');
 
                     for (var i = 0; i < entries.length; i++) {
+                        var thisEntry = removeExtraMarkup(entries[i]);
                         var speechPart = entries[i].getElementsByTagName('fl')[0].textContent;
                         var speechItem = document.createElement('li');
                         speechItem.classList.add('speech');
                         speechItem.innerText = speechPart;
                         ul.appendChild(speechItem);
 
-                        var definitions = entries[i].getElementsByTagName('dt');
+                        listThem(thisEntry);
 
-                        for (var i = 0; i < 5; i++) {
-                            var thisDefinition = definitions[i].firstChild.textContent.slice(1);
-
-                            var li = document.createElement('li');
-
-                            li.innerText = thisDefinition;
-                            ul.appendChild(li);
+                        function listThem(entry) {
+                            var definitions = entry.getElementsByTagName('dt');
+                            for (var j = 0; j < 5; j++) {
+                                var thisDefinition = definitions[j].textContent.slice(1);
+                                var defItem = document.createElement('li');
+                                defItem.innerText = thisDefinition;
+                                ul.appendChild(defItem);
+                            }
                         }
                     }
                 } else {
@@ -187,4 +189,27 @@ function pressHandler(e) {
 
         ul.appendChild(li);
     }
+}
+
+function removeExtraMarkup(entry) {
+    if (entry.getElementsByTagName('aq') != null) {
+        var aq = entry.getElementsByTagName('aq');
+        while (aq[0]) {
+            aq[0].parentElement.removeChild(aq[0]);
+        }
+    }
+    if (entry.getElementsByTagName('sxn') != null) {
+        var sxn = entry.getElementsByTagName('sxn');
+        while (sxn[0]) {
+            sxn[0].parentElement.removeChild(sxn[0]);
+        }
+    }
+    if (entry.getElementsByTagName('vi') != null) {
+        var vi = entry.getElementsByTagName('vi');
+        while (vi[0]) {
+            vi[0].parentElement.removeChild(vi[0]);
+        }
+    }
+
+    return entry;
 }

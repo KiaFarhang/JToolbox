@@ -1,7 +1,7 @@
 {
     "name": "Swiss Army Notebook",
     "description": "A collection of tools to make journalists' lives easier.",
-    // "icons": {"128": "icon_128.png"},
+    "icons": {"128": "icon_128.png", "48": "icon_48.png", "16": "icon_16.png"},
     "version": "0.1",
     "author": "Kia Farhang",
     "permissions": [
